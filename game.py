@@ -9,6 +9,14 @@ class Game:
         self.game_mode_options = ['single player', 'multi player']
         self.players = []
 
+    def run_game(self):
+        self.display_welcome()
+        self.display_rules()
+        self.set_game_mode()
+        self.run_player_setup()
+        self.run_all_rounds()
+        self.determine_game_winner()
+
     def display_welcome(self):
         print('Welcome to Rock Paper Scissors Lizard Spock!')
 
@@ -22,13 +30,17 @@ class Game:
         user_selection = self.get_valid_mode()
         self.game_mode = self.game_mode_options[user_selection - 1]
 
-    def run_game(self):
-        self.display_welcome()
-        self.display_rules()
-        self.set_game_mode()
-        self.run_player_setup()
-        self.run_all_rounds()
-        self.determine_game_winner()
+    def get_valid_mode(self):
+        valid_input = False
+        while valid_input is False:
+            user_selection = input(
+                'Please enter the number of the mode to perform: ')
+            if user_selection.isnumeric():
+                if 1 <= int(user_selection) <= len(self.game_mode_options):
+                    valid_input = True
+                    break
+            print('Invalid input, please enter a number from the list')
+        return int(user_selection)
 
     def run_player_setup(self):
         if self.game_mode == 'single player':
@@ -53,26 +65,13 @@ class Game:
             self.single_round()
             self.determine_round_winner()
 
-    def determine_game_winner(self):
-        if self.players[0].number_of_rounds_won > self.players[1].number_of_rounds_won:
-            print(f'Congratulations, {self.players[0].name} has won!')
-        elif self.players[0].number_of_rounds_won < self.players[1].number_of_rounds_won:
-            print(f'Congratulations, {self.players[1].name} has won!')
-        else:
-            print(
-                f'There was a tie between {self.players[0].name} and {self.players[1].name}')
+    def single_round(self):
+        self.players[0].generate_gesture()
+        self.players[1].generate_gesture()
 
-    def get_valid_mode(self):
-        valid_input = False
-        while valid_input is False:
-            user_selection = input(
-                'Please enter the number of the mode to perform: ')
-            if user_selection.isnumeric():
-                if 1 <= int(user_selection) <= len(self.game_mode_options):
-                    valid_input = True
-                    break
-            print('Invalid input, please enter a number from the list')
-        return int(user_selection)
+        while self.players[0].gesture == self.players[1].gesture:
+            self.players[0].generate_gesture()
+            self.players[1].generate_gesture()
 
     def determine_round_winner(self):
         if self.players[0].gesture == 'rock' and self.players[1].gesture in ['scissors', 'lizard']:
@@ -88,10 +87,11 @@ class Game:
         else:
             self.players[1].number_of_rounds_won += 1
 
-    def single_round(self):
-        self.players[0].generate_gesture()
-        self.players[1].generate_gesture()
-
-        while self.players[0].gesture == self.players[1].gesture:
-            self.players[0].generate_gesture()
-            self.players[1].generate_gesture()
+    def determine_game_winner(self):
+        if self.players[0].number_of_rounds_won > self.players[1].number_of_rounds_won:
+            print(f'Congratulations, {self.players[0].name} has won!')
+        elif self.players[0].number_of_rounds_won < self.players[1].number_of_rounds_won:
+            print(f'Congratulations, {self.players[1].name} has won!')
+        else:
+            print(
+                f'There was a tie between {self.players[0].name} and {self.players[1].name}')
