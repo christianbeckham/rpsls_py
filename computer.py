@@ -1,6 +1,7 @@
 from player import Player
 import random
 
+
 class Computer(Player):
     def __init__(self):
         super().__init__()
@@ -8,3 +9,4 @@ class Computer(Player):
 
     def generate_gesture(self):
         self.gesture = random.choice(self.gesture_options)
+        print(f'{self.name} selected {self.gesture}')

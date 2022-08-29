@@ -1,5 +1,6 @@
 from player import Player
 
+
 class Human(Player):
     def __init__(self):
         super().__init__()
@@ -10,6 +11,7 @@ class Human(Player):
             print(f'{index + 1} - {gesture}')
         user_selection = self.get_valid_gesture()
         self.gesture = self.gesture_options[user_selection - 1]
+        print(f'{self.name} selected {self.gesture}')
 
     def set_player_name(self):
         self.name = input('Please enter a name for this player: ')
@@ -17,7 +19,8 @@ class Human(Player):
     def get_valid_gesture(self):
         valid_input = False
         while valid_input is False:
-            user_selection = input('Please enter the number of the gesture to perform: ')
+            user_selection = input(
+                'Please enter the number of the gesture to perform: ')
             if user_selection.isnumeric():
                 if 1 <= int(user_selection) <= len(self.gesture_options):
                     valid_input = True
