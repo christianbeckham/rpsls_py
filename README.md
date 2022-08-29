@@ -11,8 +11,9 @@
 
 <details>
 <summary>Game Rules</summary>
-![Rules Overview](RPSLS.jpg)
-<br>The winning gesture for each round is determined by the below comparisons:
+<br>
+<img src="RPSLS.jpg">
+<br><br>The winning gesture for each round is determined by the below comparisons:
 <br>Rock crushes Scissors
 <br>Scissors cuts Paper
 <br>Paper covers Rock
