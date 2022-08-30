@@ -7,7 +7,8 @@ class Game:
         self.number_of_rounds = 3
         self.game_mode = ''
         self.game_mode_options = ['single player', 'multi player']
-        self.players = []
+        self.player_one = None
+        self.player_two = None
 
     def run_game(self):
         self.display_welcome()
@@ -44,19 +45,17 @@ class Game:
 
     def run_player_setup(self):
         if self.game_mode == 'single player':
-            human_one = Human()
-            human_one.set_player_name()
-            self.players.extend([human_one, Computer()])
+            self.player_one = Human()
+            self.player_one.set_player_name()
+            self.player_two = Computer()
         else:
-            human_one = Human()
-            human_one.set_player_name()
-            human_two = Human()
-            human_two.set_player_name()
-            self.players.extend([human_one, human_two])
+            self.player_one = Human()
+            self.player_one.set_player_name()
+            self.player_two = Human()
+            self.player_two.set_player_name()
 
-        output = self.players[0].name + \
-            ' vs. Computer' if self.game_mode == 'single player' else self.players[
-                0].name + ' vs. ' + self.players[1].name
+        output = self.player_one.name + \
+            ' vs. Computer' if self.game_mode == 'single player' else self.player_one.name + ' vs. ' + self.player_two.name
         print(f'\nGAME ON! {output}')
 
     def run_all_rounds(self):
@@ -66,32 +65,32 @@ class Game:
             self.determine_round_winner()
 
     def single_round(self):
-        self.players[0].generate_gesture()
-        self.players[1].generate_gesture()
+        self.player_one.generate_gesture()
+        self.player_two.generate_gesture()
 
-        while self.players[0].gesture == self.players[1].gesture:
-            self.players[0].generate_gesture()
-            self.players[1].generate_gesture()
+        while self.player_one.gesture == self.player_two.gesture:
+            self.player_one.generate_gesture()
+            self.player_two.generate_gesture()
 
     def determine_round_winner(self):
-        if self.players[0].gesture == 'rock' and self.players[1].gesture in ['scissors', 'lizard']:
-            self.players[0].number_of_rounds_won += 1
-        elif self.players[0].gesture == 'paper' and self.players[1].gesture in ['rock', 'spock']:
-            self.players[0].number_of_rounds_won += 1
-        elif self.players[0].gesture == 'scissors' and self.players[1].gesture in ['paper', 'lizard']:
-            self.players[0].number_of_rounds_won += 1
-        elif self.players[0].gesture == 'lizard' and self.players[1].gesture in ['spock', 'paper']:
-            self.players[0].number_of_rounds_won += 1
-        elif self.players[0].gesture == 'spock' and self.players[1].gesture in ['scissors', 'rock']:
-            self.players[0].number_of_rounds_won += 1
+        if self.player_one.gesture == 'rock' and self.player_two.gesture in ['scissors', 'lizard']:
+            self.player_one.number_of_rounds_won += 1
+        elif self.player_one.gesture == 'paper' and self.player_two.gesture in ['rock', 'spock']:
+            self.player_one.number_of_rounds_won += 1
+        elif self.player_one.gesture == 'scissors' and self.player_two.gesture in ['paper', 'lizard']:
+            self.player_one.number_of_rounds_won += 1
+        elif self.player_one.gesture == 'lizard' and self.player_two.gesture in ['spock', 'paper']:
+            self.player_one.number_of_rounds_won += 1
+        elif self.player_one.gesture == 'spock' and self.player_two.gesture in ['scissors', 'rock']:
+            self.player_one.number_of_rounds_won += 1
         else:
-            self.players[1].number_of_rounds_won += 1
+            self.player_two.number_of_rounds_won += 1
 
     def determine_game_winner(self):
-        if self.players[0].number_of_rounds_won > self.players[1].number_of_rounds_won:
-            print(f'Congratulations, {self.players[0].name} has won!')
-        elif self.players[0].number_of_rounds_won < self.players[1].number_of_rounds_won:
-            print(f'Congratulations, {self.players[1].name} has won!')
+        if self.player_one.number_of_rounds_won > self.player_two.number_of_rounds_won:
+            print(f'Congratulations, {self.player_one.name} has won!')
+        elif self.player_one.number_of_rounds_won < self.player_two.number_of_rounds_won:
+            print(f'Congratulations, {self.player_two.name} has won!')
         else:
             print(
-                f'There was a tie between {self.players[0].name} and {self.players[1].name}')
+                f'There was a tie between {self.player_one.name} and {self.player_two.name}')
