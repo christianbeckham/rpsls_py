@@ -1,4 +1,10 @@
-from gesture import Gesture
+import imp
+from rock import Rock
+from paper import Paper
+from scissors import Scissors
+from lizard import Lizard
+from spock import Spock
+from banana import Banana
 
 class Player:
     def __init__(self):
@@ -11,4 +17,4 @@ class Player:
         pass
 
     def initialize_gestures(self):
-        return [Gesture(name) for name in ['rock', 'paper', 'scissors', 'lizard', 'spock']]
+        return [Rock(), Paper(), Scissors(), Lizard(), Spock(), Banana()]
