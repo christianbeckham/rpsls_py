@@ -8,10 +8,10 @@ class Human(Player):
     def generate_gesture(self):
         print('Please select a gesture from the following options:')
         for index, gesture in enumerate(self.gesture_options):
-            print(f'{index + 1} - {gesture}')
+            print(f'{index + 1} - {gesture.name}')
         user_selection = self.get_valid_gesture()
         self.gesture = self.gesture_options[user_selection - 1]
-        print(f'{self.name} selected {self.gesture}')
+        print(f'{self.name} selected {self.gesture.name}')
 
     def set_player_name(self):
         self.name = input('Please enter a name for this player: ')

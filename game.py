@@ -68,20 +68,12 @@ class Game:
         self.player_one.generate_gesture()
         self.player_two.generate_gesture()
 
-        while self.player_one.gesture == self.player_two.gesture:
+        while self.player_one.gesture.name == self.player_two.gesture.name:
             self.player_one.generate_gesture()
             self.player_two.generate_gesture()
 
     def determine_round_winner(self):
-        if self.player_one.gesture == 'rock' and self.player_two.gesture in ['scissors', 'lizard']:
-            self.player_one.number_of_rounds_won += 1
-        elif self.player_one.gesture == 'paper' and self.player_two.gesture in ['rock', 'spock']:
-            self.player_one.number_of_rounds_won += 1
-        elif self.player_one.gesture == 'scissors' and self.player_two.gesture in ['paper', 'lizard']:
-            self.player_one.number_of_rounds_won += 1
-        elif self.player_one.gesture == 'lizard' and self.player_two.gesture in ['spock', 'paper']:
-            self.player_one.number_of_rounds_won += 1
-        elif self.player_one.gesture == 'spock' and self.player_two.gesture in ['scissors', 'rock']:
+        if self.player_one.gesture.name in self.player_two.gesture.weakness:
             self.player_one.number_of_rounds_won += 1
         else:
             self.player_two.number_of_rounds_won += 1

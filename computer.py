@@ -9,4 +9,4 @@ class Computer(Player):
 
     def generate_gesture(self):
         self.gesture = random.choice(self.gesture_options)
-        print(f'{self.name} selected {self.gesture}')
+        print(f'{self.name} selected {self.gesture.name}')
